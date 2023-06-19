@@ -27,12 +27,13 @@ public class BoardComment extends BaseEntity {
 
     @Column(length = 5000)
     private String content;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_pid")
     private Board board;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "comment")
-    private List<BoardReComment> reCommentList = new ArrayList<>();
+    private List<BoardReComment> boardReComments = new ArrayList<>();
 
     @Column(name = "del_at")
     @Type(type="yes_no")

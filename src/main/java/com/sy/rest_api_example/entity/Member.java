@@ -8,7 +8,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Getter
@@ -34,6 +33,9 @@ public class Member extends BaseEntity {
 
     @Column(length = 11)
     private String phoneNum;
+
+    @Column(length = 11)
+    private String name;
 
     @Column(length = 6, nullable = false)
     private String zipcode;
