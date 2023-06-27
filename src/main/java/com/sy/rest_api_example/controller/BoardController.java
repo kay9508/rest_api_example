@@ -25,11 +25,28 @@ public class BoardController {
         List<BoardDTO> result = boardService.findAll();
         return ResponseEntity.ok().body(result);
     }
+
     @PostMapping("/board")
     public ResponseEntity<BoardDTO> createBoard(@RequestBody BoardDTO boardDTO,
                                                       @CurrentUser Member member) {
         log.debug("save Board : {}", boardDTO);
         BoardDTO result = boardService.save(boardDTO, member);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PatchMapping("/board")
+    public ResponseEntity<BoardDTO> updateBoard(@RequestBody BoardDTO boardDTO,
+                                                @CurrentUser Member member) {
+        log.debug("update Board : {}", boardDTO);
+        BoardDTO result = boardService.update(boardDTO, member);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @DeleteMapping("/board")
+    public ResponseEntity<BoardDTO> logicalDeleteBoard(@RequestBody BoardDTO boardDTO,
+                                                @CurrentUser Member member) {
+        log.debug("logicalDelete Board : {}", boardDTO);
+        BoardDTO result = boardService.logicalDelete(boardDTO, member);
         return ResponseEntity.ok().body(result);
     }
 

@@ -17,8 +17,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-
         http
                 .authorizeRequests((authorizeRequests) ->
                         authorizeRequests
@@ -46,10 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and(); // HttpBasic 인증 방식 사용
 
-        /*http
-                .csrf().disable();*/
-
-        http.addFilterBefore(filter, CsrfFilter.class)
+        http
                 .csrf().disable();
 
     }
