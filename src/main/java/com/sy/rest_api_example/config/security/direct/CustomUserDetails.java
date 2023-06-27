@@ -1,4 +1,4 @@
-package com.sy.rest_api_example.config.securityDirect;
+package com.sy.rest_api_example.config.security.direct;
 
 import com.sy.rest_api_example.entity.Member;
 import lombok.Getter;
@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 
 @Getter
 public class CustomUserDetails implements UserDetails {
+
+    private Member member;
+
         //UserDetails에서 기본 getter가 필요한 fields
         private String username;                                            // DB의 P.K
         private String password;                                     // DB의 비밀번호
@@ -31,6 +34,8 @@ public class CustomUserDetails implements UserDetails {
                             member.getRoles().stream().map(role -> new SimpleGrantedAuthority(username))
                                     .collect(Collectors.toList());
             this.authorities = roles;
+
+            this.member = member;
         }
 
 }

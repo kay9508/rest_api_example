@@ -28,8 +28,8 @@ public class Member extends BaseEntity {
     @Column(length = 100)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Role> roles = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "member", fetch = FetchType.EAGER)
+    private List<MemberRole> roles = new ArrayList<>();
 
     @Column(length = 11)
     private String phoneNum;

@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name="\"order\"")
 public class Order extends BaseEntity {
 
     @Id
@@ -26,7 +26,7 @@ public class Order extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_pid", nullable = false)
     private Member member;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
@@ -39,9 +39,11 @@ public class Order extends BaseEntity {
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "pay_type")
     private PayType payType;
 
     @ColumnDefault("0")
+    @Column(name = "total_price")
     private int totalPrice;
 
     @Column(name = "order_num", nullable = false)

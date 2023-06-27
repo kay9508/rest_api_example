@@ -1,4 +1,4 @@
-package com.sy.rest_api_example.config.securityDirect;
+package com.sy.rest_api_example.config.security.direct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

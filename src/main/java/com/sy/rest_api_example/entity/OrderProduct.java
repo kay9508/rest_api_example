@@ -19,7 +19,7 @@ public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_item_pid")
+    @Column(name = "order_product_pid")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,14 +31,15 @@ public class OrderProduct {
     private Product product;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     private OrderStatus orderStatus;
 
-    @Column
+    @Column(name = "way_bill_num")
     private String wayBillNum;
 
     @Column
     private int quantity;
 
-    @Column
+    @Column(name = "total_price")
     private int totalPrice;
 }
