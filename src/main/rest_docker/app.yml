@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: rest_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: elevatorDB
+      TZ: Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+#    image: elasticsearch:8.8.0
+    container_name: rest_elasticSearch
+#    build:
+#      context: ../../../Dockerfile
+#      args:
+#        VERSION: 8.8.0
+    environment:
+      - node.name=single-node
+      - cluster.name=backtony
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - es-bridge
+
+  kibana:
+    container_name: rest_kibana
+    image: docker.elastic.co/kibana/kibana:8.8.0
+#    image: kibana:8.8.0
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_HOSTS: 127.0.0.1:9200
+    ports:
+      - 5601:5601
+    # Elasticsearch Start Dependency
+    depends_on:
+      - es
+    networks:
+      - es-bridge
+
+  logstash:
+    container_name: rest_logstash
+    image: logstash:8.8.0
+    ports:
+      - 5000:5000/tcp
+      - 5000:5000/udp
+      - 9600:9600
+    depends_on:
+      - es
+
+networks:
+  es-bridge:
+    driver: bridge
